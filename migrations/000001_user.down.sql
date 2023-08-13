@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS `pix_key`;
+DROP TABLE IF EXISTS `user`;
