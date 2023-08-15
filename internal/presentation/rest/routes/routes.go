@@ -9,5 +9,6 @@ func InitPixKeyRoutes(
 	r *gin.RouterGroup,
 	handler handler.UserHandlerInterface,
 ) {
+	r.POST("/users", handler.RegisterUser)
 	r.GET("/users/:id", handler.FindUserById)
 }

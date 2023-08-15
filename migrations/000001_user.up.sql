@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS `pix_key` (
     `birthdate` datetime NOT NULL,
     `document` datetime NOT NULL,
     `email` varchar(255) NOT NULL,
+    `password` varchar(255) NOT NULL,
     `created_at` datetime NOT NULL,
     `modified_at` datetime
     )ENGINE=InnoDB DEFAULT CHARSET=UTF8;

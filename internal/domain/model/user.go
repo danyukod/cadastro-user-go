@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/danyukod/cadastro-user-go/pkg/entity"
 	"golang.org/x/crypto/bcrypt"
+	"time"
 )
 
 type UserDomainInterface interface {
@@ -12,7 +13,7 @@ type UserDomainInterface interface {
 	GetLastName() string
 	GetEmail() string
 	GetDocument() string
-	GetBirthDate() string
+	GetBirthDate() time.Time
 	GetPassword() string
 	ValidatePassword(string) bool
 	Validate() error
@@ -29,6 +30,26 @@ func NewUserDomain(name, lastName, email, document, birthDate, password string) 
 		lastName:  lastName,
 		email:     email,
 		document:  document,
+		birthDate: converToTime(birthDate),
+		password:  string(hash),
+	}
+	if err := userDomain.Validate(); err != nil {
+		return nil, err
+	}
+	return &userDomain, nil
+}
+
+func NewUserDomainWithID(id entity.ID, birthDate time.Time, name, lastName, email, document, password string) (UserDomainInterface, error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return nil, err
+	}
+	userDomain := userDomain{
+		id:        id,
+		name:      name,
+		lastName:  lastName,
+		email:     email,
+		document:  document,
 		birthDate: birthDate,
 		password:  string(hash),
 	}
@@ -38,13 +59,19 @@ func NewUserDomain(name, lastName, email, document, birthDate, password string) 
 	return &userDomain, nil
 }
 
+func converToTime(birthDate string) time.Time {
+	layout := "2006-01-02"
+	t, _ := time.Parse(layout, birthDate)
+	return t
+}
+
 type userDomain struct {
 	id        entity.ID
 	name      string
 	lastName  string
 	email     string
 	document  string
-	birthDate string
+	birthDate time.Time
 	password  string
 }
 
@@ -72,7 +99,7 @@ func (u userDomain) GetEmail() string {
 	return u.email
 }
 
-func (u userDomain) GetBirthDate() string {
+func (u userDomain) GetBirthDate() time.Time {
 	return u.birthDate
 }
 
