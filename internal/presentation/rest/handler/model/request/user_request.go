@@ -7,12 +7,24 @@ type RegisterUserRequest struct {
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
 	Document  string `json:"document"`
-	BirthDate string `json:"birth_date"`
+	BirthDate string `json:"birthdate"`
 	Password  string `json:"password"`
 }
 
 type FindUserRequest struct {
 	Id string `uri:"id" binding:"required"`
+}
+
+type GetJWTRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+func (r GetJWTRequest) ToDTO() dto.GenerateTokenDTO {
+	return dto.GenerateTokenDTO{
+		Email:    r.Email,
+		Password: r.Password,
+	}
 }
 
 func (p *RegisterUserRequest) ToDTO() dto.RegisterUserDTO {

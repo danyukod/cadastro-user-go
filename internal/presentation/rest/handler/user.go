@@ -8,21 +8,27 @@ import (
 	"net/http"
 )
 
-func NewUserHandlerInterface(findUserUseCase commands.FindUserUseCaseInterface, registerUseCase commands.RegisterUserUseCaseInterface) UserHandlerInterface {
+func NewUserHandlerInterface(
+	findUserUseCase commands.FindUserUseCaseInterface,
+	registerUseCase commands.RegisterUserUseCaseInterface,
+	generateTokenUseCase commands.GenerateTokenUseCaseInterface) UserHandlerInterface {
 	return &handler{
-		findUserUseCase: findUserUseCase,
-		registerUseCase: registerUseCase,
+		findUserUseCase:      findUserUseCase,
+		registerUseCase:      registerUseCase,
+		generateTokenUseCase: generateTokenUseCase,
 	}
 }
 
 type UserHandlerInterface interface {
 	RegisterUser(c *gin.Context)
 	FindUserById(c *gin.Context)
+	GetJWT(c *gin.Context)
 }
 
 type handler struct {
-	findUserUseCase commands.FindUserUseCaseInterface
-	registerUseCase commands.RegisterUserUseCaseInterface
+	findUserUseCase      commands.FindUserUseCaseInterface
+	registerUseCase      commands.RegisterUserUseCaseInterface
+	generateTokenUseCase commands.GenerateTokenUseCaseInterface
 }
 
 func (p *handler) FindUserById(c *gin.Context) {
@@ -60,4 +66,22 @@ func (p *handler) RegisterUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, response.UserDomainToRegisterWebResponse(userDomain))
+}
+
+func (p *handler) GetJWT(c *gin.Context) {
+	var userRequest request.GetJWTRequest
+
+	err := c.ShouldBindJSON(&userRequest)
+	if err != nil {
+		ErrorHandler(c, err)
+		return
+	}
+
+	token, err := p.generateTokenUseCase.Execute(userRequest.ToDTO())
+	if err != nil {
+		ErrorHandler(c, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, response.JWTResponse{AccessToken: token})
 }

@@ -1,9 +1,9 @@
-CREATE TABLE IF NOT EXISTS `pix_key` (
+CREATE TABLE IF NOT EXISTS `cadastro_user` (
     `id` varchar(36) NOT NULL PRIMARY KEY,
-    `user_name` varchar(255) NOT NULL,
-    `user_last_name` varchar(255) NOT NULL,
-    `birthdate` datetime NOT NULL,
-    `document` datetime NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `last_name` varchar(255) NOT NULL,
+    `birth_date` datetime NOT NULL,
+    `document` varchar(255) NOT NULL,
     `email` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `created_at` datetime NOT NULL,

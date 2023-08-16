@@ -28,7 +28,7 @@ func startPixKeyAPI() error {
 		return err
 	}
 
-	if err := factories.NewUserRouterFactory(database); err != nil {
+	if err := factories.NewUserRouterFactory(database, *conf); err != nil {
 		logger.Error("Failed to start PixKey Router: ", err)
 		return err
 	}

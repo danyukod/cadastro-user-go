@@ -11,8 +11,8 @@ type UserEntity struct {
 	Name       string    `gorm:"not null"`
 	LastName   string    `gorm:"not null"`
 	BirthDate  time.Time `gorm:"type:timestamp;not null"`
-	Document   string    `gorm:"not null;uniqueIndex"`
-	Email      string    `gorm:"not null;uniqueIndex"`
+	Document   string    `gorm:"not null"`
+	Email      string    `gorm:"not null"`
 	Password   string    `gorm:"not null"`
 	CreatedAt  time.Time `gorm:"type:timestamp;not null"`
 	ModifiedAt time.Time `gorm:"type:timestamp;not null"`
@@ -42,4 +42,8 @@ func EntityToDomain(entity UserEntity) (model.UserDomainInterface, error) {
 		entity.Document,
 		entity.Password,
 	)
+}
+
+func (UserEntity) TableName() string {
+	return "cadastro_user"
 }

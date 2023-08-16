@@ -12,6 +12,10 @@ type UserResponse struct {
 	Password  string `json:"password"`
 }
 
+type JWTResponse struct {
+	AccessToken string `json:"access_token"`
+}
+
 func UserDomainToFindWebResponse(userDomain model.UserDomainInterface) *UserResponse {
 	return &UserResponse{
 		Id:        userDomain.GetID().String(),

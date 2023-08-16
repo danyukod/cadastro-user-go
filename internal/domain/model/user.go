@@ -15,8 +15,8 @@ type UserDomainInterface interface {
 	GetDocument() string
 	GetBirthDate() time.Time
 	GetPassword() string
-	ValidatePassword(string) bool
 	Validate() error
+	ValidatePassword(password string) bool
 }
 
 func NewUserDomain(name, lastName, email, document, birthDate, password string) (UserDomainInterface, error) {

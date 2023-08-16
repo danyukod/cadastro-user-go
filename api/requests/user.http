@@ -1,0 +1,11 @@
+POST {{host}}/users
+Content-Type: application/json
+
+{
+  "name": "Danilo",
+  "last_name": "Kodavara",
+  "email": "dyk@email.com",
+  "document": "123456",
+  "birthdate": "1991-01-24",
+  "password": "d@nil0"
+}

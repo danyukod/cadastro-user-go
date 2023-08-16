@@ -12,3 +12,8 @@ type RegisterUserDTO struct {
 	BirthDate string
 	Password  string
 }
+
+type GenerateTokenDTO struct {
+	Email    string
+	Password string
+}
