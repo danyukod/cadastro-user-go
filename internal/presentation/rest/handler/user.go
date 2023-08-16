@@ -40,7 +40,7 @@ func (p *handler) FindUserById(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, response.UserDomainToFindWebResponse(*userDomain))
+	c.JSON(http.StatusOK, response.UserDomainToFindWebResponse(userDomain))
 
 }
 
@@ -59,5 +59,5 @@ func (p *handler) RegisterUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, response.UserDomainToRegisterWebResponse(*userDomain))
+	c.JSON(http.StatusCreated, response.UserDomainToRegisterWebResponse(userDomain))
 }

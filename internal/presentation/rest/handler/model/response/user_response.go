@@ -19,7 +19,7 @@ func UserDomainToFindWebResponse(userDomain model.UserDomainInterface) *UserResp
 		LastName:  userDomain.GetLastName(),
 		Email:     userDomain.GetEmail(),
 		Document:  userDomain.GetDocument(),
-		BirthDate: userDomain.GetBirthDate(),
+		BirthDate: userDomain.GetBirthDate().String(),
 		Password:  userDomain.GetPassword(),
 	}
 }
@@ -31,7 +31,7 @@ func UserDomainToRegisterWebResponse(userDomain model.UserDomainInterface) *User
 		LastName:  userDomain.GetLastName(),
 		Email:     userDomain.GetEmail(),
 		Document:  userDomain.GetDocument(),
-		BirthDate: userDomain.GetBirthDate(),
+		BirthDate: userDomain.GetBirthDate().String(),
 		Password:  userDomain.GetPassword(),
 	}
 }
