@@ -11,5 +11,5 @@ func InitPixKeyRoutes(
 ) {
 	r.POST("/users", handler.RegisterUser)
 	r.GET("/users/:id", handler.FindUserById)
-	r.POST("/users/generate_token", handler.GetJWT)
+	r.POST("/users/auth", handler.GetJWT)
 }

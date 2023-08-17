@@ -9,3 +9,13 @@ Content-Type: application/json
   "birthdate": "1991-01-24",
   "password": "d@nil0"
 }
+
+###
+
+POST {{host}}/users/auth
+Content-Type: application/json
+
+{
+  "email": "dyk@email.com",
+  "password": "d@nil0"
+}

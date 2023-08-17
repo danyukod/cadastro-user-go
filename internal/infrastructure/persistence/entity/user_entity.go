@@ -33,7 +33,7 @@ func DomainToEntity(domain model.UserDomainInterface) *UserEntity {
 }
 
 func EntityToDomain(entity UserEntity) (model.UserDomainInterface, error) {
-	return model.NewUserDomainWithID(
+	return model.NewUserDomainFromEntity(
 		entity.ID,
 		entity.BirthDate,
 		entity.Name,
