@@ -1,4 +1,4 @@
-package midleware
+package middleware
 
 import (
 	"github.com/gin-gonic/gin"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func TokenAuthMiddleware(secretKey string) gin.HandlerFunc {
+func TokenAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenStr := c.GetHeader("Authorization")
 
@@ -25,6 +25,7 @@ func TokenAuthMiddleware(secretKey string) gin.HandlerFunc {
 			}
 
 			// Save your secret key (this should be read from config file or environment variable!)
+			secretKey := c.Value("secretKey").(string)
 
 			// Return the secret key (this should be a []byte slice instead of a string in a real application!)
 			return []byte(secretKey), nil

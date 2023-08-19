@@ -2,16 +2,15 @@ package routes
 
 import (
 	"github.com/danyukod/cadastro-user-go/internal/presentation/rest/handler"
-	"github.com/danyukod/cadastro-user-go/pkg/midleware"
+	"github.com/danyukod/cadastro-user-go/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 func InitPrivateUserRoutes(
 	r *gin.RouterGroup,
 	handler handler.UserHandlerInterface,
-	secretKey string,
 ) {
-	r.Use(midleware.TokenAuthMiddleware(secretKey))
+	r.Use(middleware.TokenAuthMiddleware())
 	r.GET("/:id", handler.FindUserById)
 }
 

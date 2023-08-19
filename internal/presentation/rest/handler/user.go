@@ -8,6 +8,11 @@ import (
 	"net/http"
 )
 
+const (
+	SecretKey     = "secretKey"
+	JwtExpiration = "jwtExpiration"
+)
+
 func NewUserHandlerInterface(
 	findUserUseCase commands.FindUserUseCaseInterface,
 	registerUseCase commands.RegisterUserUseCaseInterface,
@@ -70,6 +75,8 @@ func (p *handler) RegisterUser(c *gin.Context) {
 
 func (p *handler) GetJWT(c *gin.Context) {
 	var userRequest request.GetJWTRequest
+	secretKey := c.GetString(SecretKey)
+	jwtExpiresIn := c.GetInt(JwtExpiration)
 
 	err := c.ShouldBindJSON(&userRequest)
 	if err != nil {
@@ -77,7 +84,7 @@ func (p *handler) GetJWT(c *gin.Context) {
 		return
 	}
 
-	token, err := p.generateTokenUseCase.Execute(userRequest.ToDTO())
+	token, err := p.generateTokenUseCase.Execute(userRequest.ToDTO(secretKey, jwtExpiresIn))
 	if err != nil {
 		ErrorHandler(c, err)
 		return

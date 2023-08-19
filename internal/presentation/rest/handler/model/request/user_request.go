@@ -1,6 +1,8 @@
 package request
 
-import "github.com/danyukod/cadastro-user-go/internal/application/commands/dto"
+import (
+	"github.com/danyukod/cadastro-user-go/internal/application/commands/dto"
+)
 
 type RegisterUserRequest struct {
 	Name      string `json:"name"`
@@ -20,10 +22,12 @@ type GetJWTRequest struct {
 	Password string `json:"password"`
 }
 
-func (r GetJWTRequest) ToDTO() dto.GenerateTokenDTO {
+func (r GetJWTRequest) ToDTO(secret string, expire int) dto.GenerateTokenDTO {
 	return dto.GenerateTokenDTO{
-		Email:    r.Email,
-		Password: r.Password,
+		Email:        r.Email,
+		Password:     r.Password,
+		JwtSecret:    []byte(secret),
+		JwtExpiresIn: expire,
 	}
 }
 

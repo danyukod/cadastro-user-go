@@ -3,7 +3,7 @@ package commands
 import (
 	"github.com/danyukod/cadastro-user-go/internal/application/commands/dto"
 	"github.com/danyukod/cadastro-user-go/internal/infrastructure/persistence"
-	"github.com/go-chi/jwtauth"
+	"github.com/golang-jwt/jwt"
 	"github.com/pkg/errors"
 	"time"
 )
@@ -14,19 +14,13 @@ type GenerateTokenUseCaseInterface interface {
 
 type generateTokenUseCase struct {
 	persistence.UserPersistenceInterface
-	*jwtauth.JWTAuth
-	JwtExpiresIn int
 }
 
 func NewGenerateTokenUseCaseInterface(
 	userPersistence persistence.UserPersistenceInterface,
-	jwtAuth *jwtauth.JWTAuth,
-	jwtExpiresIn int,
 ) GenerateTokenUseCaseInterface {
 	return &generateTokenUseCase{
 		userPersistence,
-		jwtAuth,
-		jwtExpiresIn,
 	}
 }
 
@@ -41,10 +35,14 @@ func (g generateTokenUseCase) Execute(dto dto.GenerateTokenDTO) (string, error) 
 		return "", errors.New("invalid password")
 	}
 
-	_, accessToken, err := g.JWTAuth.Encode(map[string]interface{}{
-		"sub": u.GetID().String(),
-		"exp": time.Now().Add(time.Second * time.Duration(g.JwtExpiresIn)).Unix(),
-	})
+	claims := jwt.StandardClaims{
+		Subject:   u.GetID().String(),
+		ExpiresAt: time.Now().Add(time.Second * time.Duration(dto.JwtExpiresIn)).Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS512, claims)
+
+	accessToken, err := token.SignedString(dto.JwtSecret)
 
 	return accessToken, nil
 }
