@@ -21,12 +21,16 @@ func NewUserRouterFactory(database *gorm.DB, config configs.Config) error {
 	router := gin.Default()
 	router.Use(middleware.TimeoutMiddleware())
 	rGroup := router.Group("/users")
-	rGroup.Use(func(c *gin.Context) {
-		c.Set(SecretKey, config.GetJWTSecret())
-		c.Set(JwtExpiration, config.GetJWTExpiration())
-	})
+	rGroup.Use(getJwtConfig(config))
 	routes.InitPublicUserRoutes(rGroup, userHandler)
 	routes.InitPrivateUserRoutes(rGroup, userHandler)
 
 	return router.Run(":8081")
+}
+
+func getJwtConfig(config configs.Config) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		c.Set(SecretKey, config.GetJWTSecret())
+		c.Set(JwtExpiration, config.GetJWTExpiration())
+	}
 }
