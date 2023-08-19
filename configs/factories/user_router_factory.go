@@ -13,6 +13,7 @@ func NewUserRouterFactory(database *gorm.DB, config configs.Config) error {
 	userHandler := factory.NewUserHandlerFactory(database, config.GetTokenAuth(), config.GetJWTExpiration())
 
 	router := gin.Default()
+	routes.InitPublicUserRoutes(&router.RouterGroup, userHandler)
 	routes.InitPrivateUserRoutes(&router.RouterGroup, userHandler, config.GetJWTSecret())
 
 	return router.Run(":8081")
