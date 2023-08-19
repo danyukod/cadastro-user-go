@@ -57,5 +57,5 @@ func GetErrorMsg(fe validator.FieldError) string {
 	case "gte":
 		return "Should be greater than " + fe.Param()
 	}
-	return "Unknown handler"
+	return "Unknown midleware"
 }

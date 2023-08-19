@@ -39,7 +39,7 @@ func Info(message string, tags ...zap.Field) {
 }
 
 func Error(message string, err error, tags ...zap.Field) {
-	tags = append(tags, zap.NamedError("handler", err))
+	tags = append(tags, zap.NamedError("midleware", err))
 	log.Info(message, tags...)
 	log.Sync()
 }
@@ -57,7 +57,7 @@ func getLevelLogs() zapcore.Level {
 	switch strings.ToLower(strings.TrimSpace(os.Getenv(LOG_LEVEL))) {
 	case "info":
 		return zapcore.InfoLevel
-	case "handler":
+	case "midleware":
 		return zapcore.ErrorLevel
 	case "debug":
 		return zapcore.DebugLevel

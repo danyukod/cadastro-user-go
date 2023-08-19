@@ -7,6 +7,7 @@ require (
 	github.com/go-chi/jwtauth v1.2.0
 	github.com/go-playground/validator/v10 v10.14.0
 	github.com/go-sql-driver/mysql v1.7.1
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang-migrate/migrate/v4 v4.16.2
 	github.com/google/uuid v1.3.0
 	github.com/pkg/errors v0.9.1

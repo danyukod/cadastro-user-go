@@ -1,5 +1,21 @@
+POST {{host}}/users/auth
+Content-Type: application/json
+
+{
+  "email": "dyk@email.com",
+  "password": "d@nil0"
+}
+
+> {%
+    client.global.set("token", response.body.access_token);
+%}
+
+
+###
+
 POST {{host}}/users
 Content-Type: application/json
+Authorization: {{token}}
 
 {
   "name": "Danilo",
@@ -12,10 +28,6 @@ Content-Type: application/json
 
 ###
 
-POST {{host}}/users/auth
+GET {{host}}/users/{{id}}
 Content-Type: application/json
-
-{
-  "email": "dyk@email.com",
-  "password": "d@nil0"
-}
+Authorization: {{token}}
