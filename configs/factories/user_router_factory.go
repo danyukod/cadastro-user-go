@@ -1,8 +1,8 @@
 package factories
 
 import (
+	"github.com/danyukod/cadastro-user-go/api/docs"
 	"github.com/danyukod/cadastro-user-go/configs"
-	"github.com/danyukod/cadastro-user-go/docs"
 	"github.com/danyukod/cadastro-user-go/internal/presentation/rest/handler/factory"
 	"github.com/danyukod/cadastro-user-go/internal/presentation/rest/routes"
 	"github.com/danyukod/cadastro-user-go/pkg/middleware"
