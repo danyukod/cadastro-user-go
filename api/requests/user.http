@@ -1,4 +1,4 @@
-POST {{host}}/users/auth
+POST {{host}}{{base-path}}/users/auth
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-POST {{host}}/users
+POST {{host}}{{base-path}}/users
 Content-Type: application/json
 Authorization: {{token}}
 
@@ -28,6 +28,6 @@ Authorization: {{token}}
 
 ###
 
-GET {{host}}/users/{{id}}
+GET {{host}}{{base-path}}/users/{{id}}
 Content-Type: application/json
 Authorization: {{token}}

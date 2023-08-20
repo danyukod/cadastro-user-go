@@ -6,6 +6,24 @@ import (
 	"github.com/danyukod/cadastro-user-go/configs/logger"
 )
 
+// @title Cadastro de Usuário API
+// @version v1
+// @description API para cadastro de usuário
+// @BasePath /api/v1
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name Danilo Kodavara
+// @contact.url  https://www.linkedin.com/in/danilo-kodavara/
+// @contact.email danilo.kodavara@gmail.com
+
+// @license.name Danilo  Kodavara License
+// @license.url https://www.linkedin.com/in/danilo-kodavara/
+
+// @host localhost:8081
+// @BasePath /api/v1
+// @securityDefinitions ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	err := startPixKeyAPI()
 	if err != nil {

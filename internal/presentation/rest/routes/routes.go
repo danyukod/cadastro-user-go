@@ -10,14 +10,20 @@ func InitPrivateUserRoutes(
 	r *gin.RouterGroup,
 	handler handler.UserHandlerInterface,
 ) {
-	r.Use(middleware.TokenAuthMiddleware())
-	r.GET("/:id", handler.FindUserById)
+	usersGroup := r.Group("/users")
+	{
+		usersGroup.Use(middleware.TokenAuthMiddleware())
+		usersGroup.GET("/:id", handler.FindUserById)
+	}
 }
 
 func InitPublicUserRoutes(
 	r *gin.RouterGroup,
 	handler handler.UserHandlerInterface,
 ) {
-	r.POST("auth", handler.GetJWT)
-	r.POST("/", handler.RegisterUser)
+	usersGroup := r.Group("/users")
+	{
+		usersGroup.POST("auth", handler.GetJWT)
+		usersGroup.POST("/", handler.RegisterUser)
+	}
 }
