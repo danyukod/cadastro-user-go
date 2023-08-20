@@ -36,6 +36,20 @@ type handler struct {
 	generateTokenUseCase commands.GenerateTokenUseCaseInterface
 }
 
+// @BasePath /api/v1
+
+// FindUserById godoc
+// @Summary Find By UserId
+// @Schemes
+// @Description Find By UserId
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param request body request.FindUserRequest true "find-by-id request"
+// @Success 200 {object} response.UserResponse
+// @Failure 500 {object} ErrorsResponse
+// @Failure 400 {object} ErrorsResponse
+// @Router /users/{id} [get]
 func (p *handler) FindUserById(c *gin.Context) {
 	var userRequest request.FindUserRequest
 
@@ -55,6 +69,20 @@ func (p *handler) FindUserById(c *gin.Context) {
 
 }
 
+// @BasePath /api/v1
+
+// RegisterUser godoc
+// @Summary Register User
+// @Schemes
+// @Description Register User
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param request body request.RegisterUserRequest true "find-by-id request"
+// @Success 201 {object} response.UserResponse
+// @Failure 500 {object} ErrorsResponse
+// @Failure 400 {object} ErrorsResponse
+// @Router /users/{id} [post]
 func (p *handler) RegisterUser(c *gin.Context) {
 	var userRequest request.RegisterUserRequest
 
@@ -73,6 +101,20 @@ func (p *handler) RegisterUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, response.UserDomainToRegisterWebResponse(userDomain))
 }
 
+// @BasePath /api/v1
+
+// GetJWT godoc
+// @Summary Get JWT
+// @Schemes
+// @Description Get JWT
+// @Tags jwt
+// @Accept json
+// @Produce json
+// @Param request body request.GetJWTRequest true "find-by-id request"
+// @Success 201 {object} response.JWTResponse
+// @Failure 500 {object} ErrorsResponse
+// @Failure 400 {object} ErrorsResponse
+// @Router /users/auth [post]
 func (p *handler) GetJWT(c *gin.Context) {
 	var userRequest request.GetJWTRequest
 	secretKey := c.GetString(SecretKey)

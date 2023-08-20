@@ -43,6 +43,8 @@ func businessErrorHandler(c *gin.Context, err value_object.BusinessErrors) {
 	c.AbortWithStatusJSON(http.StatusBadRequest, out)
 }
 
+type ErrorsResponse []ErrorResponse
+
 type ErrorResponse struct {
 	Field   string `json:"field"`
 	Message string `json:"message"`
