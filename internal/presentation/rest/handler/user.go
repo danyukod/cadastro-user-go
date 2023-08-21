@@ -50,6 +50,7 @@ type handler struct {
 // @Failure 500 {object} ErrorsResponse
 // @Failure 400 {object} ErrorsResponse
 // @Router /users/{id} [get]
+// @Security ApiKeyAuth
 func (p *handler) FindUserById(c *gin.Context) {
 	var userRequest request.FindUserRequest
 
@@ -78,7 +79,7 @@ func (p *handler) FindUserById(c *gin.Context) {
 // @Tags users
 // @Accept json
 // @Produce json
-// @Param request body request.RegisterUserRequest true "find-by-id request"
+// @Param request body request.RegisterUserRequest true "register-user request"
 // @Success 201 {object} response.UserResponse
 // @Failure 500 {object} ErrorsResponse
 // @Failure 400 {object} ErrorsResponse
@@ -110,10 +111,11 @@ func (p *handler) RegisterUser(c *gin.Context) {
 // @Tags jwt
 // @Accept json
 // @Produce json
-// @Param request body request.GetJWTRequest true "find-by-id request"
-// @Success 201 {object} response.JWTResponse
+// @Param request body request.GetJWTRequest true "user-credentials request"
+// @Success 200 {object} response.JWTResponse
 // @Failure 500 {object} ErrorsResponse
 // @Failure 400 {object} ErrorsResponse
+// @Failure 404 {object} ErrorsResponse
 // @Router /users/auth [post]
 func (p *handler) GetJWT(c *gin.Context) {
 	var userRequest request.GetJWTRequest

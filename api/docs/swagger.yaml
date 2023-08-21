@@ -103,6 +103,8 @@ paths:
             items:
               $ref: '#/definitions/handler.ErrorResponse'
             type: array
+      security:
+      - ApiKeyAuth: []
       summary: Find By UserId
       tags:
       - users
@@ -111,7 +113,7 @@ paths:
       - application/json
       description: Register User
       parameters:
-      - description: find-by-id request
+      - description: register-user request
         in: body
         name: request
         required: true
@@ -145,7 +147,7 @@ paths:
       - application/json
       description: Get JWT
       parameters:
-      - description: find-by-id request
+      - description: user-credentials request
         in: body
         name: request
         required: true
@@ -154,12 +156,18 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/response.JWTResponse'
         "400":
           description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/handler.ErrorResponse'
+            type: array
+        "404":
+          description: Not Found
           schema:
             items:
               $ref: '#/definitions/handler.ErrorResponse'

@@ -12,7 +12,7 @@ func TokenAuthMiddleware() gin.HandlerFunc {
 
 		// Token is missing
 		if tokenStr == "" {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Authorization token is missing"})
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization token is missing"})
 			c.Abort()
 			return
 		}

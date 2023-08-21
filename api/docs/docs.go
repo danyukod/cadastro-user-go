@@ -40,7 +40,7 @@ const docTemplate = `{
                 "summary": "Get JWT",
                 "parameters": [
                     {
-                        "description": "find-by-id request",
+                        "description": "user-credentials request",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -50,14 +50,23 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/response.JWTResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/handler.ErrorResponse"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -79,6 +88,11 @@ const docTemplate = `{
         },
         "/users/{id}": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Find By UserId",
                 "consumes": [
                     "application/json"
@@ -142,7 +156,7 @@ const docTemplate = `{
                 "summary": "Register User",
                 "parameters": [
                     {
-                        "description": "find-by-id request",
+                        "description": "register-user request",
                         "name": "request",
                         "in": "body",
                         "required": true,
