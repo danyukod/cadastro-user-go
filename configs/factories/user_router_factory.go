@@ -12,11 +12,6 @@ import (
 	"gorm.io/gorm"
 )
 
-const (
-	SecretKey     = "secretKey"
-	JwtExpiration = "jwtExpiration"
-)
-
 func NewUserRouterFactory(database *gorm.DB, config configs.Config) error {
 
 	userHandler := factory.NewUserHandlerFactory(database)
@@ -24,7 +19,7 @@ func NewUserRouterFactory(database *gorm.DB, config configs.Config) error {
 	router := gin.Default()
 
 	v1 := router.Group("/api/v1")
-	router.Use(middleware.TimeoutMiddleware(), getJwtConfig(config))
+	router.Use(middleware.TimeoutMiddleware(), middleware.SetJwtConfig(config.GetJWTSecret(), config.GetJWTExpiration()))
 	routes.InitPublicUserRoutes(v1, userHandler)
 	routes.InitPrivateUserRoutes(v1, userHandler)
 
@@ -32,11 +27,4 @@ func NewUserRouterFactory(database *gorm.DB, config configs.Config) error {
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return router.Run(":8081")
-}
-
-func getJwtConfig(config configs.Config) func(c *gin.Context) {
-	return func(c *gin.Context) {
-		c.Set(SecretKey, config.GetJWTSecret())
-		c.Set(JwtExpiration, config.GetJWTExpiration())
-	}
 }

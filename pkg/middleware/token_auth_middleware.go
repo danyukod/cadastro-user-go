@@ -6,6 +6,11 @@ import (
 	"net/http"
 )
 
+const (
+	SecretKey     = "secretKey"
+	JwtExpiration = "jwtExpiration"
+)
+
 func TokenAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenStr := c.GetHeader("Authorization")
@@ -39,5 +44,12 @@ func TokenAuthMiddleware() gin.HandlerFunc {
 
 		// Everything went well, proceed with the request
 		c.Next()
+	}
+}
+
+func SetJwtConfig(jwtSecret string, jwtExpiration int) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		c.Set(SecretKey, jwtSecret)
+		c.Set(JwtExpiration, jwtExpiration)
 	}
 }
