@@ -84,7 +84,7 @@ func (p *handler) FindUserById(c *gin.Context) {
 // @Success 201 {object} response.UserResponse
 // @Failure 500 {object} ErrorsResponse
 // @Failure 400 {object} ErrorsResponse
-// @Router /users/{id} [post]
+// @Router /users [post]
 func (p *handler) RegisterUser(c *gin.Context) {
 	var userRequest request.RegisterUserRequest
 

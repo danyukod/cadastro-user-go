@@ -65,6 +65,40 @@ info:
   title: Cadastro de Usuário API
   version: v1
 paths:
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Register User
+      parameters:
+      - description: register-user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.RegisterUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            items:
+              $ref: '#/definitions/handler.ErrorResponse'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            items:
+              $ref: '#/definitions/handler.ErrorResponse'
+            type: array
+      summary: Register User
+      tags:
+      - users
   /users/{id}:
     get:
       consumes:
@@ -103,39 +137,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Find By UserId
-      tags:
-      - users
-    post:
-      consumes:
-      - application/json
-      description: Register User
-      parameters:
-      - description: register-user request
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/request.RegisterUserRequest'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/response.UserResponse'
-        "400":
-          description: Bad Request
-          schema:
-            items:
-              $ref: '#/definitions/handler.ErrorResponse'
-            type: array
-        "500":
-          description: Internal Server Error
-          schema:
-            items:
-              $ref: '#/definitions/handler.ErrorResponse'
-            type: array
-      summary: Register User
       tags:
       - users
   /users/auth:
