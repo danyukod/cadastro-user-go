@@ -7,13 +7,6 @@ definitions:
       message:
         type: string
     type: object
-  request.FindUserRequest:
-    properties:
-      id:
-        type: string
-    required:
-    - id
-    type: object
   request.GetJWTRequest:
     properties:
       email:
@@ -78,12 +71,16 @@ paths:
       - application/json
       description: Find By UserId
       parameters:
-      - description: find-by-id request
-        in: body
-        name: request
+      - description: User ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/request.FindUserRequest'
+        type: string
+      - description: Bearer token
+        in: path
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:

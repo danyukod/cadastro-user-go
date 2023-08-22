@@ -106,13 +106,18 @@ const docTemplate = `{
                 "summary": "Find By UserId",
                 "parameters": [
                     {
-                        "description": "find-by-id request",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.FindUserRequest"
-                        }
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -202,17 +207,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "request.FindUserRequest": {
-            "type": "object",
-            "required": [
-                "id"
-            ],
-            "properties": {
-                "id": {
                     "type": "string"
                 }
             }

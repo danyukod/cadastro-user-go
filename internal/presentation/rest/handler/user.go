@@ -45,7 +45,8 @@ type handler struct {
 // @Tags users
 // @Accept json
 // @Produce json
-// @Param request body request.FindUserRequest true "find-by-id request"
+// @Param id path string true "User ID"
+// @Param Authorization path string true "Bearer token"
 // @Success 200 {object} response.UserResponse
 // @Failure 500 {object} ErrorsResponse
 // @Failure 400 {object} ErrorsResponse
