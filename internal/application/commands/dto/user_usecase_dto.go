@@ -16,6 +16,6 @@ type RegisterUserDTO struct {
 type GenerateTokenDTO struct {
 	Email        string
 	Password     string
-	JwtSecret    []byte
+	JwtSecret    string
 	JwtExpiresIn int
 }

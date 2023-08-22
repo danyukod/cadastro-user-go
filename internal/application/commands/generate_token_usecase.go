@@ -42,7 +42,7 @@ func (g generateTokenUseCase) Execute(dto dto.GenerateTokenDTO) (string, error) 
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS512, claims)
 
-	accessToken, err := token.SignedString(dto.JwtSecret)
+	accessToken, err := token.SignedString([]byte(dto.JwtSecret))
 
 	return accessToken, nil
 }

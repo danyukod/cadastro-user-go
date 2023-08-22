@@ -19,7 +19,8 @@ func NewUserRouterFactory(database *gorm.DB, config configs.Config) error {
 	router := gin.Default()
 
 	v1 := router.Group("/api/v1")
-	router.Use(middleware.TimeoutMiddleware(), middleware.SetJwtConfig(config.GetJWTSecret(), config.GetJWTExpiration()))
+	v1.Use(middleware.TimeoutMiddleware())
+	v1.Use(middleware.SetJwtConfig(config.GetJWTSecret(), config.GetJWTExpiration()))
 	routes.InitPublicUserRoutes(v1, userHandler)
 	routes.InitPrivateUserRoutes(v1, userHandler)
 

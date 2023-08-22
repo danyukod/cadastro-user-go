@@ -26,7 +26,7 @@ func (r GetJWTRequest) ToDTO(secret string, expire int) dto.GenerateTokenDTO {
 	return dto.GenerateTokenDTO{
 		Email:        r.Email,
 		Password:     r.Password,
-		JwtSecret:    []byte(secret),
+		JwtSecret:    secret,
 		JwtExpiresIn: expire,
 	}
 }
