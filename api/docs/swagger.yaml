@@ -110,11 +110,6 @@ paths:
         name: id
         required: true
         type: string
-      - description: Bearer token
-        in: path
-        name: Authorization
-        required: true
-        type: string
       produces:
       - application/json
       responses:
@@ -179,4 +174,9 @@ paths:
       summary: Get JWT
       tags:
       - jwt
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

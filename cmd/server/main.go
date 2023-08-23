@@ -9,7 +9,6 @@ import (
 // @title Cadastro de Usuário API
 // @version v1
 // @description API para cadastro de usuário
-// @BasePath /api/v1
 // @termsOfService http://swagger.io/terms/
 
 // @contact.name Danilo Kodavara
@@ -21,7 +20,7 @@ import (
 
 // @host localhost:8081
 // @BasePath /api/v1
-// @securityDefinitions ApiKeyAuth
+// @securityDefinitions.apikey ApiKeyAuth
 // @in header
 // @name Authorization
 func main() {

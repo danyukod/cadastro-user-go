@@ -36,8 +36,6 @@ type handler struct {
 	generateTokenUseCase commands.GenerateTokenUseCaseInterface
 }
 
-// @BasePath /api/v1
-
 // FindUserById godoc
 // @Summary Find By UserId
 // @Schemes
@@ -46,7 +44,6 @@ type handler struct {
 // @Accept json
 // @Produce json
 // @Param id path string true "User ID"
-// @Param Authorization path string true "Bearer token"
 // @Success 200 {object} response.UserResponse
 // @Failure 500 {object} ErrorsResponse
 // @Failure 400 {object} ErrorsResponse
@@ -70,8 +67,6 @@ func (p *handler) FindUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, response.UserDomainToFindWebResponse(userDomain))
 
 }
-
-// @BasePath /api/v1
 
 // RegisterUser godoc
 // @Summary Register User
@@ -102,8 +97,6 @@ func (p *handler) RegisterUser(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, response.UserDomainToRegisterWebResponse(userDomain))
 }
-
-// @BasePath /api/v1
 
 // GetJWT godoc
 // @Summary Get JWT
